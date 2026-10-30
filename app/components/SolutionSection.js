@@ -1,24 +1,49 @@
-// app/components/SolutionSection.js
-import { FaCheckCircle, FaCloud, FaChartPie, FaGlobeAmericas } from 'react-icons/fa';
+import { FaBrain, FaGlobeAmericas, FaChartPie, FaShieldAlt } from 'react-icons/fa';
+import AnimatedSection from './AnimatedSection';
+
+const solutions = [
+  {
+    text: 'End-to-end climate-resilient crop insurance on web and mobile.',
+    icon: FaShieldAlt,
+  },
+  {
+    text: 'AI, satellite imagery, and local weather fused into one risk engine.',
+    icon: FaBrain,
+  },
+  {
+    text: 'Dynamic premiums and automated claims—no paperwork bottlenecks.',
+    icon: FaChartPie,
+  },
+  {
+    text: 'Coverage tailored to plot size, crop type, and regional exposure.',
+    icon: FaGlobeAmericas,
+  },
+];
 
 export default function SolutionSection() {
-  const solutions = [
-    { text: "Smart climate-resilient crop insurance system", icon: FaCheckCircle },
-    { text: "Uses AI, satellite data, and local weather patterns", icon: FaCloud },
-    { text: "Dynamic premium calculation and automated claim processing", icon: FaChartPie },
-    { text: "Personalized insurance for all farm sizes", icon: FaGlobeAmericas },
-  ];
-
   return (
-    <section id="solution-section" className="py-16 bg-[#111827]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-white mb-12">The Solution: Veridian Analytics</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <section id="solution-section" className="section-padding bg-[#0a0d10]">
+      <div className="section-container">
+        <AnimatedSection className="text-center mb-14 md:mb-16">
+          <span className="section-label">Our answer</span>
+          <h2 className="section-title">Veridian Analytics platform</h2>
+          <p className="section-subtitle mx-auto">
+            Precision risk pricing and transparent payouts—designed for the people who grow our food.
+          </p>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
           {solutions.map((solution, index) => (
-            <div key={index} className="flex items-start bg-[#1f2937] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              {solution.icon && <solution.icon className="h-8 w-8 text-green-400 mr-4 flex-shrink-0" />}
-              <p className="text-lg text-gray-200 leading-relaxed">{solution.text}</p>
-            </div>
+            <AnimatedSection
+              key={solution.text}
+              delayClass={`stagger-${index + 1}`}
+              className="card-surface p-6 md:p-8 flex gap-4 items-start group"
+            >
+              <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-teal-500/10 flex items-center justify-center transition-colors duration-300 group-hover:bg-teal-500/20">
+                <solution.icon className="h-5 w-5 text-teal-400" aria-hidden />
+              </div>
+              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">{solution.text}</p>
+            </AnimatedSection>
           ))}
         </div>
       </div>

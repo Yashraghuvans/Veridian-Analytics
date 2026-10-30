@@ -1,24 +1,49 @@
-// app/components/ProblemSection.js
-import { FaLightbulb, FaCloud, FaFileAlt, FaChartBar } from 'react-icons/fa';
+import { FaCloud, FaChartBar, FaFileAlt, FaSeedling } from 'react-icons/fa';
+import AnimatedSection from './AnimatedSection';
+
+const problems = [
+  {
+    text: 'Most smallholders lack access to reliable, affordable crop insurance.',
+    icon: FaSeedling,
+  },
+  {
+    text: 'Climate volatility drives unpredictable yields and rising financial losses.',
+    icon: FaCloud,
+  },
+  {
+    text: 'Legacy schemes are slow, one-size-fits-all, and hard to trust.',
+    icon: FaFileAlt,
+  },
+  {
+    text: 'Traditional products ignore real-time risk and hyperlocal farm data.',
+    icon: FaChartBar,
+  },
+];
 
 export default function ProblemSection() {
-  const problems = [
-    { text: "80% of farmers lack reliable insurance", icon: FaLightbulb },
-    { text: "Climate change causes unpredictable yields and rising losses", icon: FaCloud },
-    { text: "Government schemes are slow, generic, or inefficient", icon: FaFileAlt },
-    { text: "Current insurance doesn't factor in real-time risk or local data", icon: FaChartBar },
-  ];
-
   return (
-    <section id="problem-section" className="py-16 bg-[#111827]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-white mb-12">The Problem</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <section id="problem-section" className="section-padding border-t border-white/[0.04]">
+      <div className="section-container">
+        <AnimatedSection className="text-center mb-14 md:mb-16">
+          <span className="section-label">The challenge</span>
+          <h2 className="section-title">Why farmers need a better model</h2>
+          <p className="section-subtitle mx-auto">
+            Insurance should respond as fast as the weather changes—not months after the harvest is lost.
+          </p>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto">
           {problems.map((problem, index) => (
-            <div key={index} className="flex items-start bg-[#1f2937] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              {problem.icon && <problem.icon className="h-8 w-8 text-blue-400 mr-4 flex-shrink-0" />}
-              <p className="text-lg text-gray-200 leading-relaxed">{problem.text}</p>
-            </div>
+            <AnimatedSection
+              key={problem.text}
+              delayClass={`stagger-${index + 1}`}
+              className="card-surface p-6 md:p-8 flex gap-4 items-start"
+            >
+              <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                <problem.icon className="h-5 w-5 text-emerald-400" aria-hidden />
+              </div>
+              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">{problem.text}</p>
+            </AnimatedSection>
           ))}
         </div>
       </div>

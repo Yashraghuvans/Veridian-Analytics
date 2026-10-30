@@ -6,16 +6,21 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "remotion:studio": "remotion studio remotion/index.js",
+    "postinstall": "npm install --prefix .deps"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@remotion/player": "^4.0.286",
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "remotion": "^4.0.286"
   },
   "devDependencies": {
+    "@remotion/cli": "^4.0.286",
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4"
   }

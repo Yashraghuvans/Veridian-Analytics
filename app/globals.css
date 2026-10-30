@@ -1,35 +1,182 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-surface: #0c0f12;
+  --color-surface-elevated: #141920;
+  --color-surface-muted: #1a2129;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-accent: #34d399;
+  --color-accent-muted: #10b981;
+  --color-accent-dim: rgba(52, 211, 153, 0.12);
+}
+
 :root {
-  --primary-bg: #111827;
-  --secondary-bg: #1f2937;
-  --primary-text: #fff;
-  --secondary-text: #d1d5db;
-  --btn-green: #22c55e;
-  --btn-green-hover: #16a34a;
-  --btn-blue: #2563eb;
-  --btn-blue-hover: #1d4ed8;
+  --primary-bg: #0c0f12;
+  --secondary-bg: #141920;
+  --primary-text: #f4f4f5;
+  --secondary-text: #a1a1aa;
+  --accent: #34d399;
+  --accent-hover: #6ee7b7;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--primary-bg);
   color: var(--primary-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.btn-green {
-  @apply font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105;
-  background: var(--btn-green);
+::selection {
+  background: rgba(52, 211, 153, 0.25);
   color: #fff;
-}
-.btn-green:hover {
-  background: var(--btn-green-hover);
 }
 
-.btn-blue {
-  @apply font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105;
-  background: var(--btn-blue);
-  color: #fff;
+.section-padding {
+  @apply py-20 md:py-28 px-4 sm:px-6 lg:px-8;
 }
-.btn-blue:hover {
-  background: var(--btn-blue-hover);
+
+.section-container {
+  @apply max-w-6xl mx-auto;
+}
+
+.section-label {
+  @apply text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/90 mb-3 block;
+}
+
+.section-title {
+  @apply text-3xl sm:text-4xl md:text-[2.75rem] font-semibold tracking-tight text-white leading-tight;
+}
+
+.section-subtitle {
+  @apply mt-4 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed;
+}
+
+.card-surface {
+  @apply rounded-2xl border border-white/[0.08] bg-[#141920]/80 backdrop-blur-sm;
+  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card-surface:hover {
+  border-color: rgba(52, 211, 153, 0.2);
+  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 font-medium text-sm sm:text-base py-3 px-6 sm:px-8 rounded-full transition-all duration-300 ease-out;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff;
+  box-shadow: 0 4px 24px -4px rgba(16, 185, 129, 0.45);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px -4px rgba(16, 185, 129, 0.55);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 font-medium text-sm sm:text-base py-3 px-6 sm:px-8 rounded-full transition-all duration-300 ease-out border border-white/15 text-white bg-white/5 backdrop-blur-sm;
+}
+
+.btn-secondary:hover {
+  @apply border-emerald-400/40 bg-white/10;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  @apply inline-flex items-center gap-2 text-sm font-medium text-emerald-400 transition-colors duration-300 hover:text-emerald-300;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-gradient {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease forwards;
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 {
+  transition-delay: 0.05s;
+}
+.stagger-2 {
+  transition-delay: 0.1s;
+}
+.stagger-3 {
+  transition-delay: 0.15s;
+}
+.stagger-4 {
+  transition-delay: 0.2s;
+}
+.stagger-5 {
+  transition-delay: 0.25s;
+}
+
+.hero-glow {
+  animation: hero-gradient 8s ease-in-out infinite;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 70%);
+}
+
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(52, 211, 153, 0.6);
+  outline-offset: 2px;
 }

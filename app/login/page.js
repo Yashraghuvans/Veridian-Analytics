@@ -1,86 +1,107 @@
-// app/login/page.js
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import AppHeader from '../components/AppHeader';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = (e) => {
     e.preventDefault();
     setError('');
-    if (username === 'farmer' && password === '12345') {
-      router.push('/insurances');
-    } else {
-      setError('Invalid username or password. Try "farmer" / "12345".');
-    }
+    setLoading(true);
+    setTimeout(() => {
+      if (username === 'farmer' && password === '12345') {
+        router.push('/insurances');
+      } else {
+        setError('Invalid credentials. Demo: farmer / 12345');
+        setLoading(false);
+      }
+    }, 400);
   };
 
   return (
-    <div className="min-h-screen bg-[#111827] flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-[#1f2937] p-10 rounded-lg shadow-xl">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Login to Veridian Analytics
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-300">
-            For demonstration, use: <span className="font-bold text-green-400">farmer</span> / <span className="font-bold text-green-400">12345</span>
+    <div className="min-h-screen bg-[#0c0f12] flex flex-col">
+      <AppHeader />
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12">
+        <div className="w-full max-w-md animate-fade-up">
+          <div className="card-surface p-8 sm:p-10 shadow-2xl">
+            <div className="text-center mb-8">
+              <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+                Welcome back
+              </h1>
+              <p className="mt-2 text-sm text-zinc-500">
+                Sign in to manage your crop insurance
+              </p>
+            </div>
+
+            <form className="space-y-5" onSubmit={handleLogin}>
+              <div>
+                <label htmlFor="username" className="block text-xs font-medium text-zinc-400 mb-2">
+                  Username
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-[#0c0f12] text-white placeholder-zinc-600 text-sm transition-colors focus:border-emerald-500/50 focus:ring-0"
+                  placeholder="Enter username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-xs font-medium text-zinc-400 mb-2">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-[#0c0f12] text-white placeholder-zinc-600 text-sm transition-colors focus:border-emerald-500/50 focus:ring-0"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              {error && (
+                <p className="text-red-400/90 text-sm text-center bg-red-500/10 rounded-lg py-2 px-3">
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-primary w-full disabled:opacity-60 disabled:pointer-events-none"
+              >
+                {loading ? 'Signing in…' : 'Sign in'}
+              </button>
+            </form>
+
+            <p className="mt-6 text-center text-xs text-zinc-600">
+              Demo access:{' '}
+              <span className="text-zinc-400 font-mono">farmer</span> /{' '}
+              <span className="text-zinc-400 font-mono">12345</span>
+            </p>
+          </div>
+
+          <p className="mt-6 text-center">
+            <Link href="/" className="btn-ghost text-sm">
+              Back to homepage
+            </Link>
           </p>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="username" className="sr-only">Username</label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                autoComplete="username"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-400 text-white bg-[#111827] rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-400 text-white bg-[#111827] rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {error && (
-            <p className="text-red-400 text-sm text-center">{error}</p>
-          )}
-
-          <div>
-            <button
-              type="submit"
-              className="btn-green w-full"
-            >
-              Sign in
-            </button>
-          </div>
-        </form>
-        <div className="text-sm text-center">
-          <Link href="/" className="font-medium text-green-400 hover:text-green-300">
-            Back to Home
-          </Link>
         </div>
       </div>
     </div>

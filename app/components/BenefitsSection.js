@@ -1,65 +1,78 @@
-// app/components/BenefitsSection.js
-import { FaUsers, FaBuilding, FaUniversity } from 'react-icons/fa';
+import { FaBuilding, FaUniversity, FaUsers } from 'react-icons/fa';
+import AnimatedSection from './AnimatedSection';
+
+const benefits = [
+  {
+    key: 'farmers',
+    title: 'Farmers',
+    icon: FaUsers,
+    accent: 'text-emerald-400',
+    items: [
+      'Stable income when seasons fail',
+      'Faster, transparent payouts',
+      'Personalized risk assessment',
+      'Actionable climate insights',
+    ],
+  },
+  {
+    key: 'governments',
+    title: 'Governments',
+    icon: FaBuilding,
+    accent: 'text-sky-400',
+    items: [
+      'Rapid disaster response',
+      'Lower administrative overhead',
+      'Stronger food security',
+      'Evidence-based policy',
+    ],
+  },
+  {
+    key: 'insurers',
+    title: 'Insurers',
+    icon: FaUniversity,
+    accent: 'text-amber-400',
+    items: [
+      'Accurate risk pricing',
+      'Automated claims workflow',
+      'Reduced fraud exposure',
+      'New rural market access',
+    ],
+  },
+];
 
 export default function BenefitsSection() {
-  const benefits = {
-    farmers: [
-      "Guaranteed income stability",
-      "Faster, transparent payouts",
-      "Personalized risk assessment",
-      "Access to accurate climate data",
-    ],
-    governments: [
-      "Efficient disaster response",
-      "Reduced administrative burden",
-      "Enhanced food security",
-      "Data-driven policy making",
-    ],
-    insurers: [
-      "Accurate risk pricing",
-      "Automated claims processing",
-      "Reduced fraud",
-      "New market opportunities",
-    ],
-  };
-
   return (
-    <section id="benefits-section" className="py-16 bg-[#111827]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-white mb-12">Benefits</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-[#1f2937] p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-            <h3 className="text-2xl font-semibold text-green-400 mb-4 flex items-center">
-              <FaUsers className="h-7 w-7 mr-2" /> Farmers
-            </h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-200">
-              {benefits.farmers.map((benefit, index) => (
-                <li key={index}>{benefit}</li>
-              ))}
-            </ul>
-          </div>
+    <section id="benefits-section" className="section-padding">
+      <div className="section-container">
+        <AnimatedSection className="text-center mb-14 md:mb-16">
+          <span className="section-label">Stakeholders</span>
+          <h2 className="section-title">Benefits for everyone</h2>
+          <p className="section-subtitle mx-auto">
+            A shared data layer aligns incentives across farmers, public programs, and carriers.
+          </p>
+        </AnimatedSection>
 
-          <div className="bg-[#1f2937] p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-            <h3 className="text-2xl font-semibold text-blue-400 mb-4 flex items-center">
-              <FaBuilding className="h-7 w-7 mr-2" /> Governments
-            </h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-200">
-              {benefits.governments.map((benefit, index) => (
-                <li key={index}>{benefit}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="bg-[#1f2937] p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-            <h3 className="text-2xl font-semibold text-green-400 mb-4 flex items-center">
-              <FaUniversity className="h-7 w-7 mr-2" /> Insurers
-            </h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-200">
-              {benefits.insurers.map((benefit, index) => (
-                <li key={index}>{benefit}</li>
-              ))}
-            </ul>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {benefits.map((group, index) => (
+            <AnimatedSection
+              key={group.key}
+              delayClass={`stagger-${index + 1}`}
+              className="card-surface p-8"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <group.icon className={`h-6 w-6 ${group.accent}`} aria-hidden />
+                <h3 className="text-xl font-medium text-white">{group.title}</h3>
+              </div>
+              <ul className="space-y-3">
+                {group.items.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm text-zinc-400">
+                    <span className="mt-2 h-1 w-1 rounded-full bg-emerald-500/60 flex-shrink-0" aria-hidden />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </AnimatedSection>
+          ))}
         </div>
       </div>
     </section>

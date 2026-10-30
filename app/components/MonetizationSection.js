@@ -1,26 +1,64 @@
-// app/components/MonetizationSection.js
-import { FaCreditCard, FaStore, FaHandshake, FaRedoAlt } from 'react-icons/fa';
+import { FaCreditCard, FaHandshake, FaRedoAlt, FaStore } from 'react-icons/fa';
+import AnimatedSection from './AnimatedSection';
+import Link from 'next/link';
+
+const monetizationMethods = [
+  {
+    text: 'Freemium for farmers—core protection free, advanced analytics on premium tiers.',
+    icon: FaCreditCard,
+  },
+  {
+    text: 'API licensing for insurers and agencies needing verified risk and claims data.',
+    icon: FaStore,
+  },
+  {
+    text: 'Partnerships with agri-tech platforms for embedded insurance products.',
+    icon: FaHandshake,
+  },
+  {
+    text: 'Roadmap: yield-based credit scores and microloans tied to verified performance.',
+    icon: FaRedoAlt,
+  },
+];
 
 export default function MonetizationSection() {
-  const monetizationMethods = [
-    { text: "Freemium for farmers (basic features free, premium for advanced)", icon: FaCreditCard },
-    { text: "API licensing to insurers/governments for data & services", icon: FaStore },
-    { text: "Partnerships with agri-tech companies", icon: FaHandshake },
-    { text: "Future: agri credit score, microloans based on yield data", icon: FaRedoAlt },
-  ];
-
   return (
-    <section id="monetization-section" className="py-16 bg-[#111827]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-white mb-12">Monetization & Sustainability</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <section id="monetization-section" className="section-padding bg-[#0a0d10]">
+      <div className="section-container">
+        <AnimatedSection className="text-center mb-14 md:mb-16">
+          <span className="section-label">Sustainability</span>
+          <h2 className="section-title">Built to scale responsibly</h2>
+          <p className="section-subtitle mx-auto">
+            Revenue models that keep smallholders covered while funding continuous innovation.
+          </p>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto mb-12">
           {monetizationMethods.map((method, index) => (
-            <div key={index} className="flex items-start bg-[#1f2937] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              {method.icon && <method.icon className="h-8 w-8 text-green-400 mr-4 flex-shrink-0" />}
-              <p className="text-lg text-gray-200 leading-relaxed">{method.text}</p>
-            </div>
+            <AnimatedSection
+              key={method.text}
+              delayClass={`stagger-${index + 1}`}
+              className="card-surface p-6 md:p-8 flex gap-4 items-start"
+            >
+              <method.icon className="h-5 w-5 text-emerald-400 mt-1 flex-shrink-0" aria-hidden />
+              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">{method.text}</p>
+            </AnimatedSection>
           ))}
         </div>
+
+        <AnimatedSection className="text-center">
+          <div className="card-surface p-8 md:p-12 max-w-2xl mx-auto">
+            <h3 className="text-xl md:text-2xl font-medium text-white mb-3">
+              Ready to protect your next season?
+            </h3>
+            <p className="text-zinc-500 text-sm mb-8">
+              Browse plans tailored to drought, flood, pests, and multi-peril coverage.
+            </p>
+            <Link href="/insurances" className="btn-primary">
+              Browse insurance plans
+            </Link>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
